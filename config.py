@@ -3,53 +3,136 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
+
 class Config:
     def __init__(self):
-        self.API_ID = int(getenv("API_ID", 0))
-        self.API_HASH = getenv("API_HASH")
 
-        self.BOT_TOKEN = getenv("BOT_TOKEN")
-        self.MONGO_URL = getenv("MONGO_URL")
+        self.API_ID = int(getenv("API_ID", "17596251"))
 
-        self.LOGGER_ID = int(getenv("LOGGER_ID", 0))
-        self.OWNER_ID = int(getenv("OWNER_ID", 0))
+        self.API_HASH = getenv(
+            "API_HASH",
+            "e58343b4c0193e293e391daf97603fcd"
+        )
 
-        self.DURATION_LIMIT = int(getenv("DURATION_LIMIT", 17000)) * 60
-        self.QUEUE_LIMIT = int(getenv("QUEUE_LIMIT", 200))
-        self.PLAYLIST_LIMIT = int(getenv("PLAYLIST_LIMIT", 200))
+        self.BOT_TOKEN = getenv(
+            "BOT_TOKEN",
+            "Apna Bot Token"
+        )
 
-        self.SESSION1 = getenv("SESSION", None)
+        self.MONGO_URL = getenv(
+            "MONGO_URL",
+            "Apna Mongo Db Dalo"
+        )
+
+        self.LOGGER_ID = int(
+            getenv("LOGGER_ID", "123456789")
+        )
+
+        self.OWNER_ID = int(
+            getenv("OWNER_ID", "123456789")
+        )
+
+        self.SESSION1 = getenv(
+            "SESSION",
+            "Apna String Dalo"
+        )
+
         self.SESSION2 = getenv("SESSION2", None)
         self.SESSION3 = getenv("SESSION3", None)
 
-        self.SUPPORT_CHANNEL = getenv("SUPPORT_CHANNEL", "https://t.me/shona_bots")
-        self.SUPPORT_CHAT = getenv("SUPPORT_CHAT", "https://t.me/SHONA_SUPPORT")
+        self.SUPPORT_CHANNEL = getenv(
+            "SUPPORT_CHANNEL",
+            "https://t.me/shona_bots"
+        )
 
-        self.API_URL = getenv("API_URL", "https://pvtz.nexgenbots.xyz")
-        self.VIDEO_API_URL = getenv("VIDEO_API_URL", "https://api.video.nexgenbots.xyz")
-        self.API_KEY = getenv("API_KEY", "30DxNexGenBotsb9296b") # Get this value from https://console.nexgenbots.xyz
+        self.SUPPORT_CHAT = getenv(
+            "SUPPORT_CHAT",
+            "https://t.me/SHONA_SUPPORT"
+        )
 
-        self.AUTO_LEAVE: bool = getenv("AUTO_LEAVE", "False").lower() == "true"
-        self.AUTO_END: bool = getenv("AUTO_END", "False").lower() == "true"
-    
-        self.THUMB_GEN: bool = getenv("THUMB_GEN", "True").lower() == "true"
-        self.VIDEO_PLAY: bool = getenv("VIDEO_PLAY", "True").lower() == "true"
+        # Boolean Settings
+        self.AUTO_END = getenv(
+            "AUTO_END",
+            "False"
+        ).lower() == "true"
 
-        self.LANG_CODE = getenv("LANG_CODE", "en")
+        self.AUTO_LEAVE = getenv(
+            "AUTO_LEAVE",
+            "False"
+        ).lower() == "true"
 
+        self.VIDEO_PLAY = getenv(
+            "VIDEO_PLAY",
+            "True"
+        ).lower() == "true"
+
+        # Limits
+        self.QUEUE_LIMIT = int(
+            getenv("QUEUE_LIMIT", "200")
+        )
+
+        self.DURATION_LIMIT = int(
+            getenv("DURATION_LIMIT", "17000")
+        )
+
+        self.PLAYLIST_LIMIT = int(
+            getenv("PLAYLIST_LIMIT", "200")
+        )
+
+        # Cookies
         self.COOKIES_URL = [
-            url for url in getenv("COOKIES_URL", "").split(" ")
+            url
+            for url in getenv(
+                "COOKIES_URL",
+                "https://batbin.me/skippery"
+            ).split(" ")
             if url and "batbin.me" in url
         ]
-        self.DEFAULT_THUMB = getenv("DEFAULT_THUMB", "https://files.catbox.moe/s5orbf.jpg")
-        self.PING_IMG = getenv("PING_IMG", "https://files.catbox.moe/s5orbf.jpg")
-        self.START_IMG = getenv("START_IMG", "https://files.catbox.moe/s5orbf.jpg")
+
+        # Images
+        self.DEFAULT_THUMB = getenv(
+            "DEFAULT_THUMB",
+            "https://files.catbox.moe/s5orbf.jpg"
+        )
+
+        self.PING_IMG = getenv(
+            "PING_IMG",
+            "https://files.catbox.moe/s5orbf.jpg"
+        )
+
+        self.START_IMG = getenv(
+            "START_IMG",
+            "https://files.catbox.moe/s5orbf.jpg"
+        )
+
+        # API End Point
+        self.YTPROXY_URL = getenv(
+            "YTPROXY_URL",
+            "https://tgapi.xbitcode.com"
+        )
+
+        self.YT_API_KEY = getenv(
+            "YT_API_KEY",
+            "xbit_-G9GXbjRf8mA9_mz6-jnQcUoFpcEMsrM"
+        )
 
     def check(self):
+
         missing = [
             var
-            for var in ["API_ID", "API_HASH", "BOT_TOKEN", "MONGO_URL", "LOGGER_ID", "OWNER_ID", "SESSION1"]
+            for var in [
+                "API_ID",
+                "API_HASH",
+                "BOT_TOKEN",
+                "MONGO_URL",
+                "LOGGER_ID",
+                "OWNER_ID",
+                "SESSION1"
+            ]
             if not getattr(self, var)
         ]
+
         if missing:
-            raise SystemExit(f"Missing required environment variables: {', '.join(missing)}")
+            raise SystemExit(
+    f"Missing required environment variables: {', '.join(missing)}"
+    )
