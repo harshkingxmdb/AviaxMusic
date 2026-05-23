@@ -1,6 +1,6 @@
-# Copyright (c) 2025 AnonymousX1025
+# Copyright (c) 2025 TheHamkerAlone
 # Licensed under the MIT License.
-# This file is part of AnonXMusic
+# This file is part of AloneX
 
 
 import json
@@ -12,19 +12,19 @@ from pyrogram import errors
 from anony import db, logger
 
 lang_codes = {
-    "ar": "العربية",
-    "de": "Deutsch",
+    "ar": "Arabic",
+    "de": "German",
     "en": "English",
-    "es": "Español",
-    "fr": "Français",
-    "hi": "हिन्दी",
-    "ja": "日本語",
-    "my": "မြန်မာဘာသာ",
-    "pa": "ਪੰਜਾਬੀ",
-    "pt": "Português",
-    "ru": "Русский",
-    "tr": "Türkçe",
-    "zh": "中文"
+    "es": "Spanish",
+    "fr": "French",
+    "hi": "Hindi",
+    "ja": "Japanese",
+    "my": "Burmese",
+    "pa": "Punjabi",
+    "pt": "Portuguese",
+    "ru": "Russian",
+    "zh": "Chinese",
+    "mm": "Burmese",
 }
 
 
@@ -35,7 +35,7 @@ class Language:
 
     def __init__(self):
         self.lang_codes = lang_codes
-        self.lang_dir = Path("anony/locales")
+        self.lang_dir = Path("AloneX/locales")
         self.languages = self.load_files()
 
     def load_files(self):
@@ -76,10 +76,8 @@ class Language:
                 elif hasattr(fallen, "message"):
                     chat = fallen.message.chat
 
-                if not chat: return
-
                 if chat.id in db.blacklisted:
-                    logger.info(f"Chat {chat.id} is blacklisted, leaving...")
+                    logger.warning(f"Chat {chat.id} is blacklisted, leaving...")
                     return await chat.leave()
 
                 lang_code = await db.get_lang(chat.id)
@@ -88,13 +86,9 @@ class Language:
                 setattr(fallen, "lang", lang_dict)
                 try:
                     return await func(*args, **kwargs)
-                except (errors.ChannelPrivate, errors.MessageIdInvalid, errors.MessageNotModified):
-                    return
-                except (
-                    errors.Forbidden, errors.exceptions.Forbidden,
-                    errors.ChatWriteForbidden, errors.exceptions.ChatWriteForbidden,
-                ):
-                    return
+                except (errors.Forbidden, errors.exceptions.Forbidden):
+                    logger.warning(f"Cannot write to chat {chat.id}, leaving...")
+                    return await chat.leave()
 
             return wrapper
 
