@@ -10,8 +10,8 @@ import requests
 from pathlib import Path
 from py_yt import Playlist, VideosSearch
 
-from AloneX import logger
-from AloneX.helpers import Track, utils
+from anony import logger
+from anony.helpers import Track, utils
 from config import Config
 
 config = Config()
