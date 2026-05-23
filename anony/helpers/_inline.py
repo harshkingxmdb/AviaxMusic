@@ -5,8 +5,8 @@
 
 from pyrogram import types
 
-from anony import app, config, lang
-from anony.core.lang import lang_codes
+from AloneX import app, config, lang
+from AloneX.core.lang import lang_codes
 
 
 class Inline:
@@ -152,8 +152,8 @@ class Inline:
             rows += [
                 [
                     self.ikb(
-                        text=lang["source"],
-                        url="https://github.com/TERIMAAA/KABHOSRAAAPEECHAPPAL",
+                        text=lang["ᴏᴡɴᴇʀ"],
+                        url="https://t.me/thecderqueen",
                     )
                 ]
             ]
@@ -169,4 +169,4 @@ class Inline:
                     self.ikb(text="Youtube", url=link),
                 ],
             ]
-        )
+      )
